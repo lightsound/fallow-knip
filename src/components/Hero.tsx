@@ -41,11 +41,11 @@ export function Hero() {
             <ArrowRight className="size-4" />
           </a>
           <a
-            href="#commands"
+            href="#playground"
             className="inline-flex items-center gap-2 rounded-xl border border-soil-600 bg-soil-800/60 px-5 py-3 text-sm font-semibold text-soil-100 transition hover:border-soil-500 hover:bg-soil-800"
           >
             <Zap className="size-4 text-wheat-400" />
-            CLI で試す
+            解析プレイグラウンド
           </a>
         </div>
 

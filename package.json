@@ -14,7 +14,8 @@
     "analyze:fallow:dupes": "pnpm --dir sample-codebase exec fallow dupes",
     "analyze:fallow:health": "pnpm --dir sample-codebase exec fallow health --hotspots",
     "analyze:fallow:fix": "pnpm --dir sample-codebase exec fallow fix --dry-run",
-    "benchmark": "tsx scripts/benchmark.ts"
+    "benchmark": "tsx scripts/benchmark.ts",
+    "capture-outputs": "tsx scripts/capture-cli-outputs.ts"
   },
   "dependencies": {
     "lucide-react": "^1.17.0",

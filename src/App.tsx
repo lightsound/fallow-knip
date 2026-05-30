@@ -1,7 +1,6 @@
 import { Hero } from './components/Hero'
 import { FeatureMatrix } from './components/FeatureMatrix'
-import { SampleIssues } from './components/SampleIssues'
-import { CommandPanel } from './components/CommandPanel'
+import { AnalysisPlayground } from './components/AnalysisPlayground'
 import { FallowAdvantages } from './components/FallowAdvantages'
 
 export default function App() {
@@ -10,9 +9,8 @@ export default function App() {
       <Hero />
       <main>
         <FeatureMatrix />
-        <SampleIssues />
+        <AnalysisPlayground />
         <FallowAdvantages />
-        <CommandPanel />
       </main>
       <footer className="border-t border-soil-800 py-8 text-center text-sm text-soil-500">
         Fallow vs Knip 比較デモ — ライブコーディング講座用

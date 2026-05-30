@@ -118,6 +118,8 @@ export interface SampleIssue {
   file: string
   fallowFinds: boolean
   knipFinds: boolean
+  codeSnippet: string
+  highlightPatterns: string[]
 }
 
 export const sampleIssues: SampleIssue[] = [
@@ -129,6 +131,11 @@ export const sampleIssues: SampleIssue[] = [
     file: 'sample-codebase/src/unused/orphanedWidget.tsx',
     fallowFinds: true,
     knipFinds: true,
+    codeSnippet: `/** 未使用ファイル — どこからも import されない */
+export function OrphanedWidget() {
+  return <div className="orphaned">このコンポーネントは使われていません</div>
+}`,
+    highlightPatterns: ['orphanedWidget.tsx', 'Unused files'],
   },
   {
     id: 'unused-export',
@@ -138,6 +145,11 @@ export const sampleIssues: SampleIssue[] = [
     file: 'sample-codebase/src/utils/helpers.ts',
     fallowFinds: true,
     knipFinds: true,
+    codeSnippet: `/** 未使用エクスポート — Fallow / Knip 両方が検出 */
+export function unusedHelper(): boolean {
+  return true
+}`,
+    highlightPatterns: ['unusedHelper', 'Unused exports'],
   },
   {
     id: 'unused-dep',
@@ -147,6 +159,12 @@ export const sampleIssues: SampleIssue[] = [
     file: 'sample-codebase/package.json',
     fallowFinds: true,
     knipFinds: true,
+    codeSnippet: `"dependencies": {
+  "lodash": "^4.17.21",  // ← どこからも import されていない
+  "react": "^19.2.6",
+  "react-dom": "^19.2.6"
+}`,
+    highlightPatterns: ['lodash', 'Unused dependencies', 'Unused dependency'],
   },
   {
     id: 'duplicated-format',
@@ -156,6 +174,14 @@ export const sampleIssues: SampleIssue[] = [
     file: 'sample-codebase/src/utils/formatDate*.ts',
     fallowFinds: true,
     knipFinds: false,
+    codeSnippet: `// formatDateCopy.ts と helpers.ts に同一ロジック
+export function formatDateJa(date: Date): string {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return \`\${year}年\${month}月\${day}日\`
+}`,
+    highlightPatterns: ['formatDateCopy.ts', 'helpers.ts', 'Clone', 'Duplicat', 'clone groups'],
   },
   {
     id: 'complex-checkout',
@@ -165,6 +191,15 @@ export const sampleIssues: SampleIssue[] = [
     file: 'sample-codebase/src/features/checkout/validateCheckout.ts',
     fallowFinds: true,
     knipFinds: false,
+    codeSnippet: `/** 複雑度ホットスポット — Fallow health のみ検出 */
+export function validateCheckout(payload: CheckoutPayload): CheckoutResult {
+  const errors: string[] = []
+  if (!payload.email || !payload.email.includes('@')) {
+    errors.push('有効なメールアドレスを入力してください')
+  } else if (payload.email.length > 254) { /* ... */ }
+  // 20+ 分岐が続く...
+}`,
+    highlightPatterns: ['validateCheckout', 'High complexity', 'cyclomatic', 'CRITICAL'],
   },
   {
     id: 'circular-deps',
@@ -174,6 +209,18 @@ export const sampleIssues: SampleIssue[] = [
     file: 'sample-codebase/src/features/cart/cartStore.ts',
     fallowFinds: true,
     knipFinds: false,
+    codeSnippet: `// cartStore.ts
+import { getDiscountedCartTotal } from '../pricing/pricingEngine'
+export function getCartTotalWithBestDiscount(): number {
+  return getDiscountedCartTotal('silver')  // → pricing を呼ぶ
+}
+
+// pricingEngine.ts
+import { getCartTotal } from '../cart/cartStore'
+export function getDiscountedCartTotal(tier) {
+  return applyDiscount(getCartTotal(), tier)  // → cart を呼ぶ
+}`,
+    highlightPatterns: ['Circular depend', 'cartStore.ts', 'pricingEngine.ts'],
   },
 ]
 

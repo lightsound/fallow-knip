@@ -14,7 +14,8 @@
     "analyze:fallow:dupes": "pnpm --dir sample-codebase exec fallow dupes",
     "analyze:fallow:health": "pnpm --dir sample-codebase exec fallow health --hotspots",
     "analyze:fallow:fix": "pnpm --dir sample-codebase exec fallow fix --dry-run",
-    "benchmark": "tsx scripts/benchmark.ts"
+    "benchmark": "tsx scripts/benchmark.ts",
+    "capture-outputs": "tsx scripts/capture-cli-outputs.ts"
   },
   "dependencies": {
     "lucide-react": "^1.17.0",
@@ -38,6 +39,7 @@
     "tsx": "^4.22.3",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
+    "vercel": "^54.6.1",
     "vite": "^8.0.12"
   }
 }

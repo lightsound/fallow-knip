@@ -6,25 +6,17 @@
 - **解析プレイグラウンド**: 実際の CLI 出力を UI 上で Knip / Fallow 並列比較
 - **分析対象**: `sample-codebase/` に意図的な dead code・重複・循環依存・複雑度を配置
 
+## デモ URL
+
+**本番**: https://fallow-knip.vercel.app
+
+Vercel Git 連携により `main` への push で自動デプロイされます。
+
 ## クイックスタート
 
 ```bash
 pnpm install
 pnpm dev          # 比較 UI を http://localhost:5173 で起動
-```
-
-## 解析プレイグラウンド
-
-UI の「解析プレイグラウンド」セクションでは、`sample-codebase/` に対する **実際の Knip / Fallow CLI 出力** を静的スナップショットとして表示します。
-
-- 仕込んだ問題をクリック → 関連行が CLI 出力内でハイライト
-- タブ切替で Dead Code / 重複 / ヘルス / 自動修正の出力を確認
-- ベンチマーク結果（実行時間）も同セクション内に表示
-
-CLI 出力を更新する場合:
-
-```bash
-pnpm capture-outputs   # src/data/cliOutputs.ts を再生成
 ```
 
 ## CLI で比較
@@ -59,8 +51,8 @@ pnpm benchmark
 
 ## ライブコーディングの流れ
 
-1. 解析プレイグラウンドで問題と CLI 出力の差を UI 上で説明
-2. `pnpm analyze:knip` → Dead Code 系のみ（ターミナルで実演）
+1. UI (`pnpm dev`) で機能比較マトリクスとサンプル問題を説明
+2. `pnpm analyze:knip` → Dead Code 系のみ
 3. `pnpm analyze:fallow` → 重複・複雑度・循環依存も表示
 4. `pnpm benchmark` → 速度差を実測
 5. `pnpm analyze:fallow:fix` → 自動修正プレビュー
